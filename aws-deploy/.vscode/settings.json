@@ -1,0 +1,10 @@
+{
+  "cSpell.words": ["limpo", "tflint", "tfvars"],
+  "files.associations": {
+    "*.tfvars": "terraform",
+    "*.tf": "terraform"
+  },
+  "[terraform]": {
+    "editor.formatOnSave": true
+  }
+}
