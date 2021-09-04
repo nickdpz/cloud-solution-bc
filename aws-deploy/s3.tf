@@ -1,22 +1,33 @@
 resource "aws_s3_bucket" "main_bucket" {
-  bucket = "{local.stack_id}-main-bucket"
+  bucket = "{var.stack_id}-main-bucket"
   acl    = "private"
-  versioneing {
+  versioning {
     enabled = false
   }
-  tags = merge(local.commons_tags, map("Name", "${local.stack_id}-main-bucket"))
+  tags = merge({ "Name" : "${var.stack_id}-main-bucket" }, local.common_tags)
 
   lifecycle_rule {
     id      = "json-responses"
     enabled = true
     prefix  = "responses/"
-    expiration = {
-      minutes = 30
+    expiration {
+      days = 1
     }
   }
 }
 
 resource "aws_s3_bucket" "main_bucket_policy" {
   bucket = aws_s3_bucket.main_bucket.id
-  policy = data.aws_iam_policy_document.s3_main_policy_document.json
+  policy = <<EOF
+{
+   "Version":"2012-10-17",
+   "Statement":[
+      {
+         "conditions":[
+            ["content-length-range", 1000, 20000]
+         ]
+      }
+   ]
+}
+EOF
 }

@@ -9,14 +9,6 @@ data "aws_iam_policy_document" "lambda_assume_role_policy" {
   }
 }
 
-data "aws_iam_policy_document" "s3_main_policy_document" {
-  statement {
-    conditions = [
-      ["content-length-range", 1024, 20000]
-    ]
-  }
-}
-
 data "aws_iam_policy_document" "signed_urls_lambda_policy" {
   statement {
     actions   = ["s3:Get*"]
