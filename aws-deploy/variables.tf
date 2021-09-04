@@ -7,3 +7,8 @@ variable "enviroment" {
   type        = string
   description = "Enviroment owner accout aws"
 }
+
+variable "mail_sender" {
+  type        = string
+  description = "Mail by send email"
+}

@@ -11,3 +11,13 @@ $ export AWS_SECRET_ACCESS_KEY=""
 ```sh
 $ terraform validate
 ```
+
+- Plan
+```sh
+$ terraform plan -var-file ./config/default.tfvars
+```
+
+- Apply
+```sh
+$ terraform apply -var-file ./config/default.tfvars
+```
