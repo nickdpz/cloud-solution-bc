@@ -1,7 +1,7 @@
 {
   "name": "signed-urls",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "index.ts",
   "scripts": {
     "build": "npm run clean && npm run build-app",
     "build-app": "tsc -p tsconfig.json",
