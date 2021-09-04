@@ -10,6 +10,6 @@ const AppContainer: Container = new Container();
 
 AppContainer.bind<MainPresenter>(TYPES.MainPresenter).to(ApiGWPresenter);
 AppContainer.bind<MainService>(TYPES.MainService).to(MainServiceImpl);
-AppContainer.bind<MainController>(TYPES.MainController).to(ApiGWController)
+AppContainer.bind<MainController>(TYPES.MainController).to(ApiGWController);
 
 export { AppContainer };

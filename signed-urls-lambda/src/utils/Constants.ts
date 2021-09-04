@@ -4,7 +4,7 @@ export const HTTP_CODES = {
 
 export const CONSTANTS = {
 	LOG_LEVEL: "dev",
-	TIMEZONE: "America/Bogota"
+	TIMEZONE: "America/Bogota",
 };
 
 export const TYPES = {
