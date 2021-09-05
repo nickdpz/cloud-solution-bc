@@ -3,7 +3,7 @@ export const HTTP_CODES = {
 };
 
 export const CONSTANTS = {
-	LOG_LEVEL: "dev",
+	LOG_LEVEL: "debug",
 	TIMEZONE: "America/Bogota",
 };
 
@@ -11,4 +11,5 @@ export const TYPES = {
 	MainPresenter: Symbol.for("MainPresenter"),
 	MainService: Symbol.for("MainService"),
 	MainController: Symbol.for("MainController"),
+	Logger: Symbol.for("Logger"),
 };

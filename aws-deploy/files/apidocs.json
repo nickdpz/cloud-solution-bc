@@ -13,14 +13,14 @@
     }
   ],
   "paths": {
-    "/": {
+    "/endpoint": {
       "post": {
         "parameters": [],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/startProcessPostRequest"
+                "$ref": "#/components/schemas/signedUlrRequest"
               }
             }
           },
@@ -28,7 +28,7 @@
         },
         "responses": {
           "200": {
-            "description": "202 response",
+            "description": "200 response",
             "headers": {
               "Referrer-Policy": {
                 "schema": {
@@ -69,12 +69,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/startProcessResponse"
+                  "$ref": "#/components/schemas/signedUlrResponse"
                 }
               },
               "application/json;charset=UTF-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/startProcessResponse"
+                  "$ref": "#/components/schemas/signedUlrResponse"
                 }
               }
             }
@@ -91,10 +91,10 @@
         "security": [],
         "x-amazon-apigateway-request-validator": "body-only",
         "x-amazon-apigateway-integration": {
-          "uri": "AWS_LAMBDA_ARN_PREFIX:test-bc-start-process/invocations",
+          "uri": "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:961545628224:function:bc-test-default-signed-urls/invocations",
           "responses": {
             "default": {
-              "statusCode": "202"
+              "statusCode": "200"
             }
           },
           "passthroughBehavior": "when_no_match",
@@ -102,7 +102,7 @@
           "contentHandling": "CONVERT_TO_TEXT",
           "type": "aws_proxy"
         },
-        "x-codegen-request-body-name": "startProcessPostRequest"
+        "x-codegen-request-body-name": "signedUlrRequest"
       },
       "options": {
         "parameters": [],
@@ -132,7 +132,7 @@
         "x-amazon-apigateway-integration": {
           "responses": {
             "default": {
-              "statusCode": "202",
+              "statusCode": "200",
               "responseParameters": {
                 "method.response.header.Access-Control-Allow-Methods": "'POST,GET,OPTIONS'",
                 "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with, X-Client-Trace-Id, x-xss-protection, x-frame-options, x-content-type-options'",
@@ -151,102 +151,29 @@
   },
   "components": {
     "schemas": {
-      "startProcessPostRequest": {
-        "required": [
-          "email",
-          "foreignCurrency",
-          "identificationNumber",
-          "identificationType",
-          "firstName",
-          "middleName",
-          "surname",
-          "middleSurname",
-          "numberPhone",
-          "stateResources",
-          "residenceCityDaneCode",
-          "residenceCity",
-          "residentialDepartmentCode",
-          "token",
-          "usPerson",
-          "acceptTerms",
-          "accountClass"
-        ],
+      "signedUlrRequest": {
+        "required": ["fileName", "fileSize"],
         "type": "object",
         "properties": {
-          "firstName": {
-            "minLength": 1,
-            "pattern": "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\\s]*$",
+          "fileSize": {
+            "pattern": "^[0-9]*$",
             "type": "string"
           },
-          "middleName": {
-            "pattern": "^$|^[A-Za-z0-9ÑñáéíóúÁÉÍÓÚüÜ#\\-\\s]+$",
+          "fileName": {
             "type": "string"
-          },
-          "surname": {
-            "minLength": 1,
-            "pattern": "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\\s]*$",
-            "type": "string"
-          },
-          "middleSurname": {
-            "pattern": "^$|^[A-Za-z0-9ÑñáéíóúÁÉÍÓÚüÜ#\\-\\s]+$",
-            "type": "string"
-          },
-          "identificationType": {
+          }
+        }
+      },
+      "signedUlrResponse": {
+        "required": ["result"],
+        "type": "object",
+        "properties": {
+          "result": {
             "type": "string",
-            "enum": ["CC"]
+            "enum": ["failure", "success"]
           },
-          "identificationNumber": {
-            "maxLength": 10,
-            "minLength": 3,
-            "pattern": "^[0-9]*$",
+          "url": {
             "type": "string"
-          },
-          "numberPhone": {
-            "maxLength": 10,
-            "minLength": 10,
-            "pattern": "^[0-9]*$",
-            "type": "string"
-          },
-          "email": {
-            "minLength": 1,
-            "type": "string",
-            "format": "email"
-          },
-          "residenceCityDaneCode": {
-            "pattern": "^[0-9]*$",
-            "type": "string"
-          },
-          "residentialDepartmentCode": {
-            "pattern": "^[0-9]*$",
-            "type": "string"
-          },
-          "residenceCity": {
-            "pattern": "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ,\\.\\-\\s]*$",
-            "type": "string"
-          },
-          "token": {
-            "minLength": 1,
-            "pattern": "^[0-9a-zA-Z\\-_=]*$",
-            "type": "string"
-          },
-          "stateResources": {
-            "type": "boolean",
-            "enum": [false]
-          },
-          "foreignCurrency": {
-            "type": "boolean",
-            "enum": [false]
-          },
-          "usPerson": {
-            "type": "boolean",
-            "enum": [false]
-          },
-          "acceptTerms": {
-            "type": "string"
-          },
-          "accountClass": {
-            "type": "string",
-            "enum": ["1", "2", "3", "4", "5", "6"]
           }
         }
       }

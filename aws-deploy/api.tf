@@ -8,4 +8,10 @@ resource "aws_api_gateway_rest_api" "main_rest_api" {
   }
 
   tags = local.common_tags
+
+  lifecycle {
+    ignore_changes = [
+      body,
+    ]
+  }
 }
