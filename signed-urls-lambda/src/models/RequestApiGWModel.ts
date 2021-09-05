@@ -1,4 +1,4 @@
-export interface RequestApiGatewayModel {
-    fileName: string,
-    fileSize: string
+export interface RequestApiGWModel {
+	fileName: string;
+	fileSize: string;
 }
