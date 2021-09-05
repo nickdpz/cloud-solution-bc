@@ -12,7 +12,7 @@ export class S3Adapter implements StorageAdapter {
 		const expirationMinutes = 2;
 		return this.s3.getSignedUrlPromise(type, {
 			Bucket: CONSTANTS.BUCKET_NAME,
-			Key: key,
+			Key: `${CONSTANTS.FOLDER_STORAGE}${key}`,
 			Expires: CONSTANTS.SECONDS_OF_MINUTE * expirationMinutes,
 		});
 	}

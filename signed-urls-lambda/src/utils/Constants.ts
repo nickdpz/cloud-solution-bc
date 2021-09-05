@@ -9,6 +9,7 @@ export const CONSTANTS = {
 	TIMEZONE: "America/Bogota",
 	BUCKET_NAME: "bc-test-default-main-bucket",
 	SECONDS_OF_MINUTE: 60,
+	FOLDER_STORAGE: "request/",
 };
 
 export const TYPES = {
