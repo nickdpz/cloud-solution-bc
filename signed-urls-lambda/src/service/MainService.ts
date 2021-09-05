@@ -1,3 +1,3 @@
 export interface MainService {
-	processData(payload: any): Promise<object>;
+	processData(payload: any): Promise<any>;
 }
