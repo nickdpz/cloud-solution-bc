@@ -64,6 +64,7 @@ const enteredEmail = ref(false);
 const validEmail = ref(false);
 const updatedFile = ref(false);
 const file = ref({ name: "" });
+const dataURL = ref("");
 
 watch(email, (email) => {
   validEmail.value = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -72,8 +73,6 @@ watch(email, (email) => {
 });
 
 const sendData = async () => {
-  console.log(email.value);
-  console.log(validEmail.value);
   let res;
   try {
     res = await fetch(
@@ -95,14 +94,31 @@ const sendData = async () => {
   if (result !== "success") {
     return alert("Error subiendo el archivo");
   }
+  let binary = atob(dataURL.value.split(",")[1]);
+  let array = [];
+  for (let iterator = 0; iterator < binary.length; iterator++) {
+    array.push(binary.charCodeAt(iterator));
+  }
+  let blobData = new Blob([new Uint8Array(array)], { type: file.value.type });
+  const formData = new FormData();
+  formData.append("file", file.value);
+
   try {
     res = await fetch(ulrSigned, {
       method: "PUT",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: file.value,
+      body: formData,
     });
+    // res = await fetch(ulrSigned, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    //   body: file.value,
+    // });
+    // res = await fetch(ulrSigned, {
+    //   method: "PUT",
+    //   body: blobData,
+    // });
   } catch (error) {
     return alert("Error subiendo el archivo");
   }
@@ -119,6 +135,7 @@ const uploadButton = (event) => {
   const auxFile = event.target.files || event.dataTransfer.files;
   if (!auxFile.length) return;
   file.value = auxFile[0];
+  console.log(auxFile[0]);
   const reader = new FileReader();
   if (auxFile[0].name.split(".")[1] !== "csv") {
     return alert("Wrong file type - CSV only.");
@@ -126,9 +143,8 @@ const uploadButton = (event) => {
   if (auxFile[0].size > 20000) {
     return alert("Wrong file too weight");
   }
-  let dataURL = "";
   reader.onload = function () {
-    dataURL = reader.result;
+    dataURL.value = reader.result;
   };
   reader.readAsDataURL(auxFile[0]);
   updatedFile.value = true;
