@@ -1,7 +1,24 @@
 # cloud-solution-bc
  
 This repository deploy application in de cloud for manage of files
+
+## Overview
+
+Construir una aplicación web que contenga un formulario con los siguientes inputs: 
+ - Correo electrónico  
+ - Archivo tipo csv: campos [cédula, nombre] 
+
+Al hacer clic en el botón enviar, debe realizar validaciones en el formulario, procesar el archivo, almacenarlo en la nube y obtener como resultado otro archivo csv que contenga una columna adicional con la cédula cifrada [cedula, cedula_hash, nombre]. 
  
+Criterios de aceptación: 
+ - Validar que este diligenciado el correo electrónico con un formato valido. 
+ - Validar que el archivo csv cumpla con la estructura requerida, de lo contrario retornar un error. 
+ - El método de cifrado de la cédula debe ser SHA256  
+ - El proceso debe enviar un email al correo electrónico ingresado en el input del formulario, con una URL pre-firmada que permita la descarga del archivo resultante 
+ - La aplicación debe ser desplegada en la nube utilizando buenas practicas 
+ - Utilice la arquitectura, el lenguaje de programación y el proveedor de nube de su preferencia
+
+
 ## Architecture
  
 Se plantea la siguiente arquitectura con el fin de aprovechar el procesamiento de servicios como s3 para carga y almacenamiento de archivos en la nube.
