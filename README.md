@@ -66,8 +66,10 @@ Las interfaces se construyeron con el framework **vue 3** usando composition api
 ![Frontend](docs/Frontend.png?raw=true "Frontend")
  
 ## Utils
- 
-Update Lambda Signed Code
+
+Comandos utilitarios para actualización de definición de lambda y api gateway sin necesidad de desplegar infraestructura.
+
+- Update Lambda Signed Code
  
 ```sh
 $ aws lambda update-function-code \
