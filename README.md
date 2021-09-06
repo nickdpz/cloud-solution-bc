@@ -79,13 +79,13 @@ $ aws lambda update-function-code \
  --output json
 ```
  
-Test cors api gateway
+- Test cors api gateway
  
 ```sh
 curl -v -X OPTIONS https://ohtqk07i4c.execute-api.us-east-2.amazonaws.com/default/endpoint
 ```
  
-Update Api Gateway Code
+- Update Api Gateway Code
  
 ```sh
 $ aws apigateway put-rest-api \
@@ -96,7 +96,7 @@ $ aws apigateway put-rest-api \
 --body fileb://aws-deploy/files/apidocs.json
 ```
  
-Update deployment
+- Update deployment
  
 ```sh
 $ aws apigateway create-deployment \
