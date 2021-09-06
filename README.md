@@ -10,7 +10,8 @@ Construir una aplicación web que contenga un formulario con los siguientes inpu
 
 Al hacer clic en el botón enviar, debe realizar validaciones en el formulario, procesar el archivo, almacenarlo en la nube y obtener como resultado otro archivo csv que contenga una columna adicional con la cédula cifrada [cedula, cedula_hash, nombre]. 
  
-Criterios de aceptación: 
+## Criterios de aceptación: 
+
  - Validar que este diligenciado el correo electrónico con un formato valido. 
  - Validar que el archivo csv cumpla con la estructura requerida, de lo contrario retornar un error. 
  - El método de cifrado de la cédula debe ser SHA256  
@@ -74,7 +75,7 @@ Al usar la nube aws es natural el desarrollo de funciones lambda para el procesa
 | src/service/          | Lógica principal de la función lambda encargada de orquestar las respuestas de los recursos que se consumen       |
 | src/presenter/        | Capa de presentación de los datos finales dependiendo del recurso que espera la respuesta de la lambda            |
 | src/models/           | Definición de los esquemas de las estructuras de datos que usa la lambda                                           |
-| src/adapters          | Recursos utilitarios que usa el servicio para procesar la información del evento (axios, aws-sdk, luxon, etc)     |
+| src/adapters/          | Recursos utilitarios que usa el servicio para procesar la información del evento (axios, aws-sdk, luxon, etc)     |
  
 ## Frontend
  
