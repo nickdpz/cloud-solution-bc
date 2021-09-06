@@ -13,6 +13,9 @@ export class ResponseApiGW implements ResponseApiGWModel {
 		this.body = JSON.stringify(body);
 		this.headers = headers ?? {
 			"Content-Type": "application/json",
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+			"Access-Control-Allow-Headers": "Content-Type",
 		};
 	}
 }

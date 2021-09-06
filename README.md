@@ -21,12 +21,30 @@ $ aws lambda update-function-code \
  --output json
 ```
 
+Test cors api gateway
+
+```sh
+curl -v -X OPTIONS https://ohtqk07i4c.execute-api.us-east-2.amazonaws.com/default/endpoint
+```
+
 Update Api Gateway Code
 
 ```sh
 $ aws apigateway put-rest-api \
 --rest-api-id ohtqk07i4c \
+--cli-binary-format raw-in-base64-out \
 --mode merge \
 --no-fail-on-warnings \
---body file://aws-deploy/files/apidocs.json
+--body fileb://aws-deploy/files/apidocs.json
 ```
+
+Update deployment
+
+```sh
+$ aws apigateway create-deployment \
+--rest-api-id ohtqk07i4c \
+--stage-name default \
+--stage-description 'Deployment api 3' \
+--description 'Deployment to the default 3'
+```
+

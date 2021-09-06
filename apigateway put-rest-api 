@@ -1,0 +1,18 @@
+{
+    "id": "ohtqk07i4c",
+    "name": "utils-test-bc",
+    "createdDate": "2021-09-04T16:59:44-05:00",
+    "version": "1.0.0",
+    "apiKeySource": "HEADER",
+    "endpointConfiguration": {
+        "types": [
+            "REGIONAL"
+        ]
+    },
+    "tags": {
+        "enviroment": "default",
+        "origin": "terraform",
+        "stack_id": "bc-test-default"
+    },
+    "disableExecuteApiEndpoint": false
+}

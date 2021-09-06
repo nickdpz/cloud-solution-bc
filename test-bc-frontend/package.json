@@ -1,12 +1,14 @@
 {
   "name": "test-bc-frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "Front",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 4000",
     "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.21.3",
     "vue": "^3.2.6"
   },
   "devDependencies": {

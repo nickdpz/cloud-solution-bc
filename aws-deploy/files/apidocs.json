@@ -9,12 +9,13 @@
   },
   "servers": [
     {
-      "url": "https://localhost/"
+      "url": "http://localhost:3000"
     }
   ],
   "paths": {
     "/endpoint": {
       "post": {
+        "tags": ["CORS"],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -30,37 +31,22 @@
           "200": {
             "description": "200 response",
             "headers": {
-              "Referrer-Policy": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "Strict-Transport-Security": {
-                "schema": {
-                  "type": "string"
-                }
-              },
               "Access-Control-Allow-Origin": {
                 "schema": {
                   "type": "string"
                 }
               },
-              "X-Content-Type-Options": {
+              "Access-Control-Allow-Methods": {
                 "schema": {
                   "type": "string"
                 }
               },
-              "Feature-Policy": {
+              "Access-Control-Allow-Headers": {
                 "schema": {
                   "type": "string"
                 }
               },
-              "X-Content-Security-Policy": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "X-XSS-Protection": {
+              "Feature-Security-Policy": {
                 "schema": {
                   "type": "string"
                 }
@@ -105,6 +91,7 @@
         "x-codegen-request-body-name": "signedUlrRequest"
       },
       "options": {
+        "tags": ["CORS"],
         "parameters": [],
         "responses": {
           "200": {
@@ -134,8 +121,8 @@
             "default": {
               "statusCode": "200",
               "responseParameters": {
-                "method.response.header.Access-Control-Allow-Methods": "'POST,GET,OPTIONS'",
-                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,x-requested-with, X-Client-Trace-Id, x-xss-protection, x-frame-options, x-content-type-options'",
+                "method.response.header.Access-Control-Allow-Methods": "'POST,GET,PUT,OPTIONS'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'",
                 "method.response.header.Access-Control-Allow-Origin": "'*'"
               }
             }
@@ -170,7 +157,7 @@
         "properties": {
           "result": {
             "type": "string",
-            "enum": ["failure", "success"]
+            "enum": ["fail", "success"]
           },
           "url": {
             "type": "string"
