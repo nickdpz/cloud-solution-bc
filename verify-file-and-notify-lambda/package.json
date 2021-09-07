@@ -1,0 +1,65 @@
+{
+  "name": "signed-urls",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "build": "npm run clean && npm run build-app",
+    "build-app": "tsc -p tsconfig.json",
+    "clean": "rimraf dist && rimraf coverage && rimraf main.zip",
+    "copy-mdl-files": "cp package.json dist && cd dist && npm i --production && cd ../",
+    "copy-pck-files": "copyfiles -u 1 src/package.json dist/src",
+    "coverage": "nyc -r lcov -r text -e .ts -x \"test/**/*.spec.ts\" npm run test",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint '*/**/*.ts' --quiet --fix",
+    "prettier": "prettier '*/**/*.ts' --check",
+    "prettier:write": "prettier '*/**/*.ts' --write",
+    "postbuild": "npm run copy-pck-files && npm run copy-mdl-files && npm run zip && mv main.zip dist/",
+    "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
+    "zip": "cd dist/ && bestzip  ../main.zip *"
+  },
+  "keywords": [
+    "AWS",
+    "lambda",
+    "node",
+    "typescript"
+  ],
+  "author": "Nicolas Pastran",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "inversify": "^5.1.1",
+    "reflect-metadata": "^0.1.13",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/aws-lambda": "^8.10.72",
+    "@types/jasmine": "^3.6.4",
+    "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "aws-sdk": "^2.855.0",
+    "aws-sdk-mock": "^5.1.0",
+    "bestzip": "^2.1.7",
+    "copyfiles": "^2.2.0",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-jasmine": "^4.1.2",
+    "jasmine": "^3.6.4",
+    "nyc": "^15.1.0",
+    "prettier": "2.2.1",
+    "rimraf": "^3.0.2",
+    "ts-mocks": "^3.0.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.2"
+  },
+  "nyc": {
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "src/config/Config.ts"
+    ]
+  }
+}
