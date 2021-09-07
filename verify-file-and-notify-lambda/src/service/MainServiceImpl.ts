@@ -27,7 +27,7 @@ export class MainServiceImpl implements MainService {
 		items: {
 			type: "object",
 			properties: {
-				cedula: { type: "string", pattern: "^[0-9]$", nullable: true },
+				cedula: { type: "string", pattern: "^[0-9]*$", nullable: true },
 				nombre: { type: "string", nullable: true }
 			},
 			required: ["cedula", "nombre"],
@@ -44,13 +44,13 @@ export class MainServiceImpl implements MainService {
 			this.LOGGER.debug(data);
 			if (!this.validate(data)) {
 				this.LOGGER.info("Invalid file")
-				await this.storage.putObjectResponse(payload.key, { result: "fail", message: "Invalid file" })
+				await this.storage.putObjectResponse(payload.key.replace("csv", "json"), { result: "fail", message: "Invalid file" })
 			}
 			const info = data.map((item: any) => {
 				return { ...item, hash: this.hash.hashField(item.cedula) }
 			})
-			const url = await this.storage.putObjectResult(payload.key, info)
-			await this.storage.putObjectResponse(payload.key, { result: "fail", url })
+			const url = await this.storage.putObjectResult(payload.replace("csv", "json"), info)
+			await this.storage.putObjectResponse(payload.key.replace("csv", "json"), { result: "fail", url })
 			return this.presenter.generateOkResponse(data);
 		} catch (error) {
 			this.LOGGER.error(error)
