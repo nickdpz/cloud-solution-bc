@@ -10,6 +10,8 @@ import { WinstonLogger } from "../utils/logger/winston/WinstonLogger";
 import { Logger } from "../utils/logger/Logger";
 import { StorageAdapter } from "../adapters/storage/StorageAdapter";
 import { S3Adapter } from "../adapters/storage/s3/S3Adapter";
+import { FilesAdapter } from "../adapters/files/FilesAdapter"
+import { CSVAdapter } from "../adapters/files/csv/CSVAdapter"
 
 const AppContainer: Container = new Container();
 
@@ -18,5 +20,6 @@ AppContainer.bind<MainService>(TYPES.MainService).to(MainServiceImpl);
 AppContainer.bind<MainController>(TYPES.MainController).to(ApiGWController);
 AppContainer.bind<Logger>(TYPES.Logger).to(WinstonLogger);
 AppContainer.bind<StorageAdapter>(TYPES.StorageAdapter).to(S3Adapter);
+AppContainer.bind<FilesAdapter>(TYPES.FilesAdapter).to(CSVAdapter);
 
 export { AppContainer };

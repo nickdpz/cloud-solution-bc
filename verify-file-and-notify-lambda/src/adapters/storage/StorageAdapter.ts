@@ -1,3 +1,3 @@
 export interface StorageAdapter {
-	getSignedUploadUrl(key: string): Promise<any>;
+	getAndSaveObject(key: string): Promise<any>;
 }
