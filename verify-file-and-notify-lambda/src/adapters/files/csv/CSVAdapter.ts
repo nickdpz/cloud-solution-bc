@@ -10,7 +10,6 @@ export class CSVAdapter implements FilesAdapter {
 	async readFile(): Promise<any> {
 		const fileContent = await fs.readFile(CONSTANTS.FILE_DOWNLOAD_NAME);
 		const records = parse(fileContent, { columns: true });
-		console.log(records);
 		return records;
 	}
 }

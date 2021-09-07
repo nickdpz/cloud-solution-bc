@@ -19,4 +19,5 @@ export const TYPES = {
 	Logger: Symbol.for("Logger"),
 	StorageAdapter: Symbol.for("StorageAdapter"),
 	FilesAdapter: Symbol.for("FilesAdapter"),
+	HashAdapter: Symbol.for("HashAdapter"),
 };
