@@ -6,20 +6,50 @@
           Email
         </label>
         <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          class="
+            shadow
+            appearance-none
+            border
+            rounded
+            w-full
+            py-2
+            px-3
+            text-gray-700
+            mb-3
+            leading-tight
+            focus:outline-none focus:shadow-outline
+          "
           id="email"
           type="text"
           placeholder="example@gmail.com"
           @blur="intoEmail"
           v-model="email"
         />
-        <p v-if="!validEmail && enteredEmail" class="text-red-500 text-xs italic">
+        <p
+          v-if="!validEmail && enteredEmail"
+          class="text-red-500 text-xs italic"
+        >
           Ingrese un correo valido.
         </p>
       </div>
       <div class="mb-6 flex justify-center">
         <label
-          class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-gray-500"
+          class="
+            w-64
+            flex flex-col
+            items-center
+            px-4
+            py-6
+            bg-white
+            text-blue
+            rounded-lg
+            shadow-lg
+            tracking-wide
+            uppercase
+            border border-blue
+            cursor-pointer
+            hover:bg-blue hover:text-gray-500
+          "
         >
           <svg
             class="w-8 h-8"
@@ -45,7 +75,16 @@
       </div>
       <div class="flex items-center justify-center">
         <button
-          class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md disabled:opacity-50"
+          class="
+            py-2
+            px-4
+            bg-blue-500
+            text-white
+            font-semibold
+            rounded-lg
+            shadow-md
+            disabled:opacity-50
+          "
           type="button"
           :disabled="!(validEmail && updatedFile)"
           @click="sendData"
@@ -67,9 +106,10 @@ const file = ref({ name: "" });
 const dataURL = ref("");
 
 watch(email, (email) => {
-  validEmail.value = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-    email
-  );
+  validEmail.value =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      email
+    );
 });
 
 const sendData = async () => {
@@ -100,30 +140,20 @@ const sendData = async () => {
     array.push(binary.charCodeAt(iterator));
   }
   let blobData = new Blob([new Uint8Array(array)], { type: file.value.type });
-  const formData = new FormData();
-  formData.append("file", file.value);
+  //const formData = new FormData();
+  //formData.append("file", file.value);
 
   try {
     res = await fetch(ulrSigned, {
       method: "PUT",
-      body: formData,
+      body: blobData,
+      headers: {
+        "Content-Type": "text/csv",
+      },
     });
-    // res = await fetch(ulrSigned, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   body: file.value,
-    // });
-    // res = await fetch(ulrSigned, {
-    //   method: "PUT",
-    //   body: blobData,
-    // });
   } catch (error) {
     return alert("Error subiendo el archivo");
   }
-
-  const resultPut = await res.json();
   console.log(resultPut);
 };
 

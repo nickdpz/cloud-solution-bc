@@ -6,12 +6,15 @@ import { S3Event } from "aws-lambda";
 
 @injectable()
 export class ApiGWController implements MainController {
-	constructor(@inject(TYPES.MainService) private service: MainService) {}
+	constructor(@inject(TYPES.MainService) private service: MainService) { }
 
 	async handleEvent(event: S3Event): Promise<any> {
-		event.Records.map(async (record) => {
+		let result = []
+		for (const record of event.Records) {
 			const { key, size } = record.s3.object;
-			await this.service.processData({ key, size });
-		});
+			const data = await this.service.processData({ key, size });
+			result.push(data)
+		}
+		return result;
 	}
 }

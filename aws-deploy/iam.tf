@@ -1,9 +1,10 @@
 # CloudWatch
 
 resource "aws_iam_policy" "logging_policy" {
-  name   = "${var.stack_id}-logging-policy"
-  path   = "/"
-  policy = data.aws_iam_policy_document.logging_policy_document.json
+  name        = "${var.stack_id}-logging-policy"
+  description = "Log Policy"
+  path        = "/"
+  policy      = data.aws_iam_policy_document.logging_policy_document.json
 }
 
 # SES
@@ -36,8 +37,9 @@ resource "aws_iam_role" "signed_urls_lambda_role" {
 }
 
 resource "aws_iam_policy" "signed_urls_lambda_policy" {
-  name   = "${var.stack_id}-signed-urls-policy"
-  policy = data.aws_iam_policy_document.signed_urls_lambda_policy_document.json
+  name        = "${var.stack_id}-signed-urls-policy"
+  description = "Custom policy lambda signed urls"
+  policy      = data.aws_iam_policy_document.signed_urls_lambda_policy_document.json
 }
 
 resource "aws_iam_role_policy_attachment" "signed_urls_lambda_policy_attachment" {
@@ -57,8 +59,9 @@ resource "aws_iam_role" "verify_file_and_notify_lambda_role" {
 }
 
 resource "aws_iam_policy" "verify_file_and_notify_lambda_policy" {
-  name   = "${var.stack_id}-verify-file-and-nofify-policy"
-  policy = data.aws_iam_policy_document.verify_file_and_notify_lambda_policy_document.json
+  name        = "${var.stack_id}-verify-file-and-nofify-policy"
+  description = "Custom policy lambda verify file and notify"
+  policy      = data.aws_iam_policy_document.verify_file_and_notify_lambda_policy_document.json
 }
 
 resource "aws_iam_role_policy_attachment" "verify_file_and_notify_lambda_policy_attachment" {

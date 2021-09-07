@@ -96,7 +96,17 @@ $ aws lambda update-function-code \
  --publish \
  --output json
 ```
+
+- Update Lambda Verify files
  
+```sh
+$ aws lambda update-function-code \
+ --function-name bc-test-default-verify-file-and-notify \
+ --zip-file fileb://verify-file-and-notify-lambda/dist/main.zip \
+ --publish \
+ --output json
+```
+
 - Test cors api gateway
  
 ```sh

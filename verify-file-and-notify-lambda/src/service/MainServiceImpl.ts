@@ -15,11 +15,18 @@ export class MainServiceImpl implements MainService {
 		@inject(TYPES.StorageAdapter) private storage: StorageAdapter,
 		@inject(TYPES.FilesAdapter) private files: FilesAdapter,
 		@inject(TYPES.Logger) private LOGGER: Logger
-	) {}
+	) { }
 	async processData(payload: RequestServiceModel): Promise<any> {
-		await this.storage.getAndSaveObject(payload.key);
-		const data = await this.files.readFile();
-		this.LOGGER.debug(data);
-		return this.presenter.generateOkResponse(data);
+		try {
+			await this.storage.getAndSaveObject(payload.key);
+			this.LOGGER.info("Downloaded file")
+			const data = await this.files.readFile();
+			this.LOGGER.debug(data);
+			return this.presenter.generateOkResponse(data);
+		} catch (error) {
+			this.LOGGER.error(error)
+			throw this.presenter.generateInternalErrorResponse(error)
+		}
+
 	}
 }
