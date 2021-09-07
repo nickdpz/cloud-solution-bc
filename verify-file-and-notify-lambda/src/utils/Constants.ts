@@ -8,7 +8,7 @@ export const CONSTANTS = {
 	TIMEZONE: "America/Bogota",
 	BUCKET_NAME: "bc-test-default-main-bucket",
 	SECONDS_OF_MINUTE: 60,
-	FILE_DOWNLOAD_NAME:"/tmp/download.csv",
+	FILE_DOWNLOAD_NAME: "/tmp/download.csv",
 	FOLDER_STORAGE: "response/",
 };
 

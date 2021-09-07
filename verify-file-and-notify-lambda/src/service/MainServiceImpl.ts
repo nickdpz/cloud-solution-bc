@@ -13,14 +13,13 @@ export class MainServiceImpl implements MainService {
 	constructor(
 		@inject(TYPES.MainPresenter) private presenter: MainPresenter,
 		@inject(TYPES.StorageAdapter) private storage: StorageAdapter,
-		@inject(TYPES.FilesAdapter) private files: FilesAdapter
+		@inject(TYPES.FilesAdapter) private files: FilesAdapter,
 		@inject(TYPES.Logger) private LOGGER: Logger
-	) { }
+	) {}
 	async processData(payload: RequestServiceModel): Promise<any> {
-		await this.storage.getAndSaveObject(payload.key)
-		const data = await this.files.readFile()
-		this.LOGGER.debug(data)
-		return this.presenter.generateOkResponse(data)
+		await this.storage.getAndSaveObject(payload.key);
+		const data = await this.files.readFile();
+		this.LOGGER.debug(data);
+		return this.presenter.generateOkResponse(data);
 	}
-
 }

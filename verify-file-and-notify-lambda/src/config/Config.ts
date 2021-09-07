@@ -10,8 +10,8 @@ import { WinstonLogger } from "../utils/logger/winston/WinstonLogger";
 import { Logger } from "../utils/logger/Logger";
 import { StorageAdapter } from "../adapters/storage/StorageAdapter";
 import { S3Adapter } from "../adapters/storage/s3/S3Adapter";
-import { FilesAdapter } from "../adapters/files/FilesAdapter"
-import { CSVAdapter } from "../adapters/files/csv/CSVAdapter"
+import { FilesAdapter } from "../adapters/files/FilesAdapter";
+import { CSVAdapter } from "../adapters/files/csv/CSVAdapter";
 
 const AppContainer: Container = new Container();
 
