@@ -67,7 +67,7 @@
           <input
             id="file-csv"
             type="file"
-            accept=".csv"
+            accept="image/*"
             class="hidden"
             @change="uploadButton($event)"
           />
@@ -103,7 +103,6 @@ const enteredEmail = ref(false);
 const validEmail = ref(false);
 const updatedFile = ref(false);
 const file = ref({ name: "" });
-const dataURL = ref("");
 
 watch(email, (email) => {
   validEmail.value =
@@ -113,10 +112,10 @@ watch(email, (email) => {
 });
 
 const sendData = async () => {
-  let res;
+  let res, resultPut;
   try {
     res = await fetch(
-      "https://ohtqk07i4c.execute-api.us-east-2.amazonaws.com/default/endpoint",
+      "https://tu2a8dtxh3.execute-api.us-east-2.amazonaws.com/dev/upload-images",
       {
         method: "POST",
         body: JSON.stringify({
@@ -134,27 +133,21 @@ const sendData = async () => {
   if (result !== "success") {
     return alert("Error subiendo el archivo");
   }
-  let binary = atob(dataURL.value.split(",")[1]);
-  let array = [];
-  for (let iterator = 0; iterator < binary.length; iterator++) {
-    array.push(binary.charCodeAt(iterator));
-  }
-  let blobData = new Blob([new Uint8Array(array)], { type: file.value.type });
-  //const formData = new FormData();
-  //formData.append("file", file.value);
-
   try {
-    res = await fetch(ulrSigned, {
+    resultPut = await fetch(ulrSigned, {
       method: "PUT",
-      body: blobData,
       headers: {
-        "Content-Type": "text/csv",
+        "Content-Type": "multipart/form-data",
       },
+      body: file.value,
     });
   } catch (error) {
+    console.log(error);
     return alert("Error subiendo el archivo");
   }
   console.log(resultPut);
+  const imageUrl = ulrSigned.split('?')[0]
+  console.log(imageUrl)
 };
 
 const intoEmail = () => {
@@ -166,17 +159,6 @@ const uploadButton = (event) => {
   if (!auxFile.length) return;
   file.value = auxFile[0];
   console.log(auxFile[0]);
-  const reader = new FileReader();
-  if (auxFile[0].name.split(".")[1] !== "csv") {
-    return alert("Wrong file type - CSV only.");
-  }
-  if (auxFile[0].size > 20000) {
-    return alert("Wrong file too weight");
-  }
-  reader.onload = function () {
-    dataURL.value = reader.result;
-  };
-  reader.readAsDataURL(auxFile[0]);
   updatedFile.value = true;
 };
 </script>
